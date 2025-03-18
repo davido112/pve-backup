@@ -17,7 +17,7 @@ for ((i=0;i<idscount;i++))
   cp $config_dir/${ids[i]}".conf" $new_backupdir/
   vzdump ${ids[i]} --mode snapshot --dumpdir $new_backupdir --compress zstd --node pve1tszt
   echo 'A backup sikeresen lefutott: '${ids[i]}'_backup-'$date' virtuális eszközön.'
-  find $new_backupdir "qemu-${volume[idscount]}"
+  find $new_backupdir -type f "*-qemu-${ids[idscount]}-*"
 done
 
 # 100_NÉV_backup_2025_01_01
