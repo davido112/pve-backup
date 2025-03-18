@@ -6,4 +6,5 @@ $#-parancsal megnézhetem hány darab arg-ot adtak be.
 #vmid=""
 #node=""
 #saveconfig="" # True or False
+#generatedaystampfolder="" #True or False
 #filename=""
