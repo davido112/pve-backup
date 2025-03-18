@@ -1,6 +1,6 @@
 Plan:
 Argument configuration:
-# $#-parancsal megnézhetem hány darab arg-ot adtak be.
+$#-parancsal megnézhetem hány darab arg-ot adtak be.
 #backupdir=""
 #guestname=""
 #vmid=""
