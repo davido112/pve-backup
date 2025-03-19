@@ -9,6 +9,14 @@ backupdir="/backup" # Write me
 new_backupdir=$backupdir/$date
 config_dir="/etc/pve/nodes/"`hostname`"/qemu-server"
 
+"for (( i=0;i<$#;i++ ))
+ do
+  if ((  ))
+   then
+
+   fi;
+done"
+
 # Remove old backups
 find "$backupdir" -mtime +7 -exec rm -rf '{}' \;
 
