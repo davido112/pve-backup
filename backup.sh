@@ -11,7 +11,7 @@ config_dir="/etc/pve/nodes/"`hostname`"/qemu-server"
 
 "for (( i=0;i<$#;i++ ))
  do
-  if ((  ))
+  if (( '-s'=$i ||  ))
    then
 
    fi;
