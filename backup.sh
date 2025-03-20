@@ -23,11 +23,13 @@ for (( i=0;i<args;i=i+2 ));
   if (( '-b'=$args[i] || '--backupdir'=$args[i] ));
    then
     backupdir=`$args[i+1]`
+    continue;
    fi;
 
   if (( '-g'=$args[i] || '--guestname'=$args[i] ));
    then
     guestname=`$args[i+1]`
+    continue;
    fi;
    
 done"
