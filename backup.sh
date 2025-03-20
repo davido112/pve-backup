@@ -9,11 +9,19 @@ backupdir="/backup" # Write me
 new_backupdir=$backupdir/$date
 config_dir="/etc/pve/nodes/"`hostname`"/qemu-server"
 
-"for (( i=0;i<$#;i++ ))
+" args=(`$#`)
+args_num=${#args[@]}
+for (( i=0;i<args;i=i+2 ));
  do
-  if (( '-s'=$i ||  ))
+  if ((args_num%2!=0));
    then
-
+    echo 'Some arguments are missing!'
+    exit
+   fi;
+   
+  if (( '-s'=$args[i] || '--saveconfig'=$args[i] ));
+   then
+    
    fi;
 done"
 
