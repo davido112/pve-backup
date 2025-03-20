@@ -6,5 +6,5 @@ $#-parancsal megnézhetem hány darab arg-ot adtak be.
 #vmid="" # -v --vmid
 #node="" # -n --node
 #saveconfig="" # -s --saveconfig
-#generatedaystampfolder="" # -g --generatedaystampfolder
+#generatedaystampfolder="" # -gen --generatedaystampfolder
 #filename="" # -f --filename
