@@ -16,13 +16,20 @@ for (( i=0;i<args;i=i+2 ));
   if ((args_num%2!=0));
    then
     echo 'Some arguments are missing!'
-    exit
+    exit;
+   fi;
+
+  # If have backup dir make a variable
+  if (( '-b'=$args[i] || '--backupdir'=$args[i] ));
+   then
+    backupdir=`$args[i+1]`
+   fi;
+
+  if (( '-g'=$args[i] || '--guestname'=$args[i] ));
+   then
+    guestname=`$args[i+1]`
    fi;
    
-  if (( '-s'=$args[i] || '--saveconfig'=$args[i] ));
-   then
-    
-   fi;
 done"
 
 # Remove old backups
