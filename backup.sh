@@ -11,9 +11,9 @@ config_dir="/etc/pve/nodes/"`hostname`"/qemu-server"
 
 " args=(`$#`)
 args_num=${#args[@]}
-for (( i=0;i<args;i=i+2 ));
+for (( i=0;i<args_num;i=i+2 ));
  do
-  if ((args_num%2!=0));
+  if ((args_num%2==0));
    then
     echo 'Some arguments are missing!'
     exit;
