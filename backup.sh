@@ -8,6 +8,7 @@ date=`date +"%Y%m%d"`
 backupdir="/backup" # Write me
 new_backupdir=$backupdir/$date
 config_dir="/etc/pve/nodes/"`hostname`"/qemu-server"
+generatedaystampfolder=0
 
 args=("$@")
 args_num=$#
@@ -47,13 +48,13 @@ for (( i=0;i<args_num;i++ ))
 
    if [[ '-gen' == "${args[i]}" || '--generatedaystampfolder' == "${args[i]}" ]];
    then
-    generatedaystampfolder=${args[i+1]}
+    generatedaystampfolder=1
     continue;
    fi;
 
    if [[ '-f' == "${args[i]}" || '--filename' == "${args[i]}" ]];
    then
-    generatedaystampfolder=${args[i+1]}
+    filename=${args[i+1]}
     continue;
    fi;
 done
