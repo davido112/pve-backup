@@ -10,7 +10,7 @@ backupdir="/backup" # Write me
 new_backupdir=$backupdir/$date
 config_dir="/etc/pve/nodes/"`hostname`"/qemu-server"
 
-" args=(`$#`)
+"args=(`$#`)
 args_num=${#args[@]}
 for (( i=0;i<args_num;i=i+2 ));
  do
