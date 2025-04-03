@@ -57,7 +57,7 @@ for (( i=0;i<args_num;i++ ))
     continue;
    fi;
 done
-echo $backupdir
+echo $ids
 echo "Ciklus után"
 exit;
 
@@ -65,8 +65,12 @@ exit;
 find "$backupdir" -mtime +7 -exec rm -rf '{}' \;
 
 # Make daystamped folder
-mkdir -p $new_backupdir
-
+if (( $generatedaystampfolder ))
+ then
+  mkdir -p $new_backupdir
+ else
+  mkdir -p $backupdir
+fi;
 # Make backup all of the VMs to the /backup folder
 for ((i=0;i<idscount;i++))
  do
