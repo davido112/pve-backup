@@ -32,6 +32,10 @@ for (( i=0;i<args_num;i++ ))
    if [[ '-v' == "${args[i]}" || '--vmid' == "${args[i]}" ]];
    then
     vmid=${args[i+1]}
+    IFStemp=$IFS
+    IFS=","
+    ids=(`echo $vmid`)
+    IFS=$IFStemp
     continue;
    fi;
 
