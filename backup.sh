@@ -41,13 +41,13 @@ for (( i=0;i<args_num;i++ ))
 
    if [[ '-s' == "${args[i]}" || '--saveconfig' == "${args[i]}" ]];
    then
-    saveconfig=1
+    saveconfig=${args[i+1]}
     continue;
    fi;
 
    if [[ '-g' == "${args[i]}" || '--generatedaystampfolder' == "${args[i]}" ]];
    then
-    generatedaystampfolder=1
+    generatedaystampfolder=${args[i+1]}
     continue;
    fi;
 
