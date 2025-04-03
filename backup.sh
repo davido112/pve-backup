@@ -9,6 +9,7 @@ backupdir="/backup" # Write me
 new_backupdir=$backupdir/$date
 config_dir="/etc/pve/nodes/"`hostname`"/qemu-server"
 generatedaystampfolder=0
+saveconfig=0
 
 args=("$@")
 args_num=$#
@@ -42,7 +43,7 @@ for (( i=0;i<args_num;i++ ))
 
    if [[ '-s' == "${args[i]}" || '--saveconfig' == "${args[i]}" ]];
    then
-    saveconfig=${args[i+1]}
+    saveconfig=1
     continue;
    fi;
 
