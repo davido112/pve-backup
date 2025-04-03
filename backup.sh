@@ -29,12 +29,6 @@ for (( i=0;i<args_num;i++ ))
     continue;
    fi;
 
-  if [[ '-g' == "${args[i]}" || '--guestname' == "${args[i]}" ]];
-   then
-    guestname=${args[i+1]}
-    continue;
-   fi;
-
    if [[ '-v' == "${args[i]}" || '--vmid' == "${args[i]}" ]];
    then
     vmid=${args[i+1]}
@@ -47,7 +41,7 @@ for (( i=0;i<args_num;i++ ))
     continue;
    fi;
 
-   if [[ '-gen' == "${args[i]}" || '--generatedaystampfolder' == "${args[i]}" ]];
+   if [[ '-g' == "${args[i]}" || '--generatedaystampfolder' == "${args[i]}" ]];
    then
     generatedaystampfolder=1
     continue;
