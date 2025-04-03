@@ -1,12 +1,11 @@
 #!/bin/bash
 
-
 #Usage:
 #-b or --backupdir = Set a folder to move the backup
 #-v or --vmid = Only the listed VMs will backuped. Enter a value separated by a comma! f.e: -v 100,101
 #-s or --saveconfig = Need a bool value. Save the VM config to the backup dir
 #-g or --generatedaystampfolder = In the backup folder create a daystamped folder. The command need a bool value! 
-#-f or --filename = ???
+#-f or --filename = f.e: "{{vmid}}_backup_{{vmname}}'-'{{date}}"
 #./backup.sh -b /backup/anything -v 100,101,102 -s 1 -g 1
 
 # Check the created VMs and makes the text to usable format
@@ -18,6 +17,7 @@ new_backupdir=$backupdir/$date
 config_dir="/etc/pve/nodes/"`hostname`"/qemu-server"
 generatedaystampfolder=0
 saveconfig=0
+filename="{{vmid}}_backup_{{vmname}}'-'{{date}}"
 
 args=("$@")
 args_num=$#
@@ -82,12 +82,16 @@ fi;
 # Make backup all of the VMs to the /backup folder
 for ((i=0;i<idscount;i++))
  do
+ 
   if (( $saveconfig ));
    then
     cp $config_dir/${ids[i]}".conf" $new_backupdir/
   fi;
+  
   vzdump ${ids[i]} --mode snapshot --dumpdir $new_backupdir --compress zstd
   name=`cat $new_backupdir/${ids[i]}".conf" | grep "name: " | sed -e "s/name: //"`
+  filename="${filename//\{\{vmid\}\}/${ids[i]}}"
+  filename="${filename//\{\{vmname\}\}/$name}"
   find "$new_backupdir" -type f -name "*qemu-${ids[i]}*.vma.zst" -exec mv {} $new_backupdir/${ids[i]}'_backup-'$name'-'$date".vma.zst" \;
   find "$new_backupdir" -type f -name "*qemu-${ids[i]}*.log" -exec mv {} $new_backupdir/${ids[i]}'_backup-'$name'-'$date".log" \;
   if [ -f $new_backupdir/${ids[i]}'_backup-'$name'-'$date".vma.zst" ]; then
