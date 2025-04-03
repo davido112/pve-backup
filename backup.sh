@@ -5,8 +5,8 @@
 #-v or --vmid = Only the listed VMs will backuped. Enter a value separated by a comma! f.e: -v 100,101
 #-s or --saveconfig = Need a bool value. Save the VM config to the backup dir
 #-g or --generatedaystampfolder = In the backup folder create a daystamped folder. The command need a bool value! 
-#-f or --filename = f.e: "{{vmid}}_backup_{{vmname}}'-'{{date}}"
-#./backup.sh -b /backup/anything -v 100,101,102 -s 1 -g 1
+#-f or --filename = Rightnow only 3 keyword has in this arg. {{vmid}}, {{vmname}}, {{date}}
+#./backup.sh -b /backup/anything -v 100,101,102 -s 1 -g 1 -f "{{vmid}}_backup_{{vmname}}-{{date}}"
 
 # Check the created VMs and makes the text to usable format
 ids=( `pvesh get /cluster/resources --type vm | awk -F' |/' '{print $3}' | grep -v '^$'` )
