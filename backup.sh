@@ -1,6 +1,7 @@
 #!/bin/bash
 
-#Usage:
+
+Usage:
 #-b or --backupdir = Set a folder to move the backup
 #-v or --vmid = Only the listed VMs will backuped. Enter a value separated by a comma! f.e: -v 100,101
 #-s or --saveconfig = Need a bool value. Save the VM config to the backup dir
