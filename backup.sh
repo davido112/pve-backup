@@ -82,7 +82,7 @@ fi;
 # Make backup all of the VMs to the /backup folder
 for ((i=0;i<idscount;i++))
  do
- 
+ name=`cat $config_dir/${ids[i]}".conf" | grep "name: " | sed -e "s/name: //"`
   if (( $saveconfig ));
    then
     cp $config_dir/${ids[i]}".conf" $new_backupdir/
