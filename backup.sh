@@ -92,8 +92,8 @@ for ((i=0;i<idscount;i++))
   name=`cat $new_backupdir/${ids[i]}".conf" | grep "name: " | sed -e "s/name: //"`
   filename="${filename//\{\{vmid\}\}/${ids[i]}}"
   filename="${filename//\{\{vmname\}\}/$name}"
-  find "$new_backupdir" -type f -name "*qemu-${ids[i]}*.vma.zst" -exec mv {} $new_backupdir/${ids[i]}'_backup-'$name'-'$date".vma.zst" \;
-  find "$new_backupdir" -type f -name "*qemu-${ids[i]}*.log" -exec mv {} $new_backupdir/${ids[i]}'_backup-'$name'-'$date".log" \;
+  find "$new_backupdir" -type f -name "*qemu-${ids[i]}*.vma.zst" -exec mv {} $new_backupdir/$filename".vma.zst" \;
+  find "$new_backupdir" -type f -name "*qemu-${ids[i]}*.log" -exec mv {} $new_backupdir/$filename".log" \;
   if [ -f $new_backupdir/${ids[i]}'_backup-'$name'-'$date".vma.zst" ]; then
    echo 'The backup was succesful: '${ids[i]}'_backup-'$name'-'$date'.'
   else
