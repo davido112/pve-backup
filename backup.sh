@@ -57,9 +57,6 @@ for (( i=0;i<args_num;i++ ))
     continue;
    fi;
 done
-echo $ids
-echo "Ciklus után"
-exit;
 
 # Remove old backups
 find "$backupdir" -mtime +7 -exec rm -rf '{}' \;
@@ -70,11 +67,15 @@ if (( $generatedaystampfolder ))
   mkdir -p $new_backupdir
  else
   mkdir -p $backupdir
+  new_backupdir=$backupdir
 fi;
 # Make backup all of the VMs to the /backup folder
 for ((i=0;i<idscount;i++))
  do
-  cp $config_dir/${ids[i]}".conf" $new_backupdir/
+  if (( $saveconfig ));
+   then
+    cp $config_dir/${ids[i]}".conf" $new_backupdir/
+  fi;
   vzdump ${ids[i]} --mode snapshot --dumpdir $new_backupdir --compress zstd
   name=`cat $new_backupdir/${ids[i]}".conf" | grep "name: " | sed -e "s/name: //"`
   find "$new_backupdir" -type f -name "*qemu-${ids[i]}*.vma.zst" -exec mv {} $new_backupdir/${ids[i]}'_backup-'$name'-'$date".vma.zst" \;
