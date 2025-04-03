@@ -21,18 +21,41 @@ for (( i=0;i<args_num;i=i+2 ));
    fi;
 
   # If have backup dir make a variable
-  if (( '-b'=$args[i] || '--backupdir'=$args[i] ));
+  if (( '-b'="$args[i]" || '--backupdir'="$args[i]" ));
    then
     backupdir=`$args[i+1]`
     continue;
    fi;
 
-  if (( '-g'=$args[i] || '--guestname'=$args[i] ));
+  if (( '-g'="$args[i]" || '--guestname'="$args[i]" ));
    then
     guestname=`$args[i+1]`
     continue;
    fi;
-   
+
+   if (( '-v'="$args[i]" || '--vmid'="$args[i]" ));
+   then
+    vmid=`$args[i+1]`
+    continue;
+   fi;
+
+   if (( '-s'="$args[i]" || '--saveconfig'="$args[i]" ));
+   then
+    saveconfig=`$args[i+1]`
+    continue;
+   fi;
+
+   if (( '-gen'="$args[i]" || '--generatedaystampfolder'="$args[i]" ));
+   then
+    generatedaystampfolder=`$args[i+1]`
+    continue;
+   fi;
+
+   if (( '-f'="$args[i]" || '--filename'="$args[i]" ));
+   then
+    generatedaystampfolder=`$args[i+1]`
+    continue;
+   fi;
 done"
 
 # Remove old backups
