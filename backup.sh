@@ -1,14 +1,13 @@
 #!/bin/bash
-"
-Usage:
--b or --backupdir = Set a folder to move the backup
--v or --vmid = Only the listed VMs will backuped. Enter a value separated by a comma! f.e: -v 100,101
--s or --saveconfig = Need a bool value. Save the VM config to the backup dir
--g or --generatedaystampfolder = In the backup folder create a daystamped folder. The command need a bool value! 
--f or --filename = ???
 
-./backup.sh -b /backup/anything -v 100,101,102 -s 1 -g 1
-"
+
+#Usage:
+#-b or --backupdir = Set a folder to move the backup
+#-v or --vmid = Only the listed VMs will backuped. Enter a value separated by a comma! f.e: -v 100,101
+#-s or --saveconfig = Need a bool value. Save the VM config to the backup dir
+#-g or --generatedaystampfolder = In the backup folder create a daystamped folder. The command need a bool value! 
+#-f or --filename = ???
+#./backup.sh -b /backup/anything -v 100,101,102 -s 1 -g 1
 
 # Check the created VMs and makes the text to usable format
 ids=( `pvesh get /cluster/resources --type vm | awk -F' |/' '{print $3}' | grep -v '^$'` )
@@ -63,6 +62,8 @@ for (( i=0;i<args_num;i++ ))
    if [[ '-f' == "${args[i]}" || '--filename' == "${args[i]}" ]];
    then
     filename=${args[i+1]}
+    filename="${filename//\{\{date\}\}/$date}"
+    echo $filename
     continue;
    fi;
 done
