@@ -85,19 +85,18 @@ done
 find "$backupdir" -mtime +7 -exec rm -rf '{}' \;
 
 # Make daystamped folder
-if (( $generatedaystampfolder ))
- then
-  mkdir -p $new_backupdir
- else
-  mkdir -p $backupdir
-  new_backupdir=$backupdir
+if (( $generatedaystampfolder )); then
+ mkdir -p $new_backupdir
+else
+ mkdir -p $backupdir
+ new_backupdir=$backupdir
 fi;
 # Make backup all of the VMs to the /backup folder
 for ((i=0;i<idscount;i++))
  do
  name=`cat $config_dir/${ids[i]}".conf" | grep "name: " | sed -e "s/name: //"`
-  if (( $saveconfig ));
-   then
+  
+  if (( $saveconfig )); then
     cp $config_dir/${ids[i]}".conf" $new_backupdir/
     name=`cat $new_backupdir/${ids[i]}".conf" | grep "name: " | sed -e "s/name: //"`
   fi;
@@ -111,3 +110,4 @@ for ((i=0;i<idscount;i++))
   else
    echo 'The backup was failed: '$filename'.'
   fi;
+done
