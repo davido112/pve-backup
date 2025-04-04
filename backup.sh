@@ -7,6 +7,8 @@ Usage:
 #-s or --saveconfig = Need a bool value. Save the VM config to the backup dir
 #-g or --generatedaystampfolder = In the backup folder create a daystamped folder. The command need a bool value! 
 #-f or --filename = f.e: "{{vmid}}_backup_{{vmname}}'-'{{date}}"
+# -m or --backupmode = In this arg you can give 3 value for backupmod: snapshot, stop, suspend
+# -c or --compresstype = In this arg you can give 3 value for backupmod: gzip, lzo, zstd
 #./backup.sh -b /backup/anything -v 100,101,102 -s 1 -g 1
 
 # Check the created VMs and makes the text to usable format
@@ -19,6 +21,8 @@ config_dir="/etc/pve/nodes/"`hostname`"/qemu-server"
 generatedaystampfolder=0
 saveconfig=0
 filename="{{vmid}}_backup_{{vmname}}'-'{{date}}"
+compresstype="zstd"
+backupmode="snapshot"
 
 args=("$@")
 args_num=$#
@@ -61,7 +65,18 @@ for (( i=0;i<args_num;i++ ))
    then
     filename=${args[i+1]}
     filename="${filename//\{\{date\}\}/$date}"
-    echo $filename
+    continue;
+   fi;
+
+   if [[ '-m' == "${args[i]}" || '--backupmode' == "${args[i]}" ]];
+   then
+    backupmode=${args[i+1]}
+    continue;
+   fi;
+
+   if [[ '-c' == "${args[i]}" || '--compresstype' == "${args[i]}" ]];
+   then
+    compresstype=${args[i+1]}
     continue;
    fi;
 done
@@ -87,7 +102,7 @@ for ((i=0;i<idscount;i++))
     name=`cat $new_backupdir/${ids[i]}".conf" | grep "name: " | sed -e "s/name: //"`
   fi;
   
-  vzdump ${ids[i]} --mode snapshot --dumpdir $new_backupdir --compress zstd
+  vzdump ${ids[i]} --mode $backupmode --dumpdir $new_backupdir --compress $compresstype
   echo $filename | sed -e "s/{{date}}/$date/g" -e "s/{{vmid}}/${ids[i]}/g" -e "s/{{vmname}}/$name/g"
   find "$new_backupdir" -type f -name "*qemu-${ids[i]}*.vma.zst" -exec mv {} $new_backupdir/$filename".vma.zst" \;
   find "$new_backupdir" -type f -name "*qemu-${ids[i]}*.log" -exec mv {} $new_backupdir/$filename".log" \;
