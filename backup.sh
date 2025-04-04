@@ -106,8 +106,8 @@ for ((i=0;i<idscount;i++))
   echo $filename | sed -e "s/{{date}}/$date/g" -e "s/{{vmid}}/${ids[i]}/g" -e "s/{{vmname}}/$name/g"
   find "$new_backupdir" -type f -name "*qemu-${ids[i]}*.vma.zst" -exec mv {} $new_backupdir/$filename".vma.zst" \;
   find "$new_backupdir" -type f -name "*qemu-${ids[i]}*.log" -exec mv {} $new_backupdir/$filename".log" \;
-  if [ -f $new_backupdir/${ids[i]}'_backup-'$name'-'$date".vma.zst" ]; then
-   echo 'The backup was succesful: '${ids[i]}'_backup-'$name'-'$date'.'
+  if [ -f $new_backupdir/$filename".vma.zst" ]; then
+   echo 'The backup was succesful: '$filename'.'
   else
-   echo 'The backup was failed: '${ids[i]}'_backup-'$name'-'$date'.'
+   echo 'The backup was failed: '$filename'.'
   fi;
